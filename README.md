@@ -20,7 +20,7 @@ Arquitectura Lambda completa para análisis del mercado de videojuegos desplegad
                     ┌────────────────────▼────────────────────────┐
                     │         CAPA DE SERVICIO (Serving Layer)     │
                     │  8 KPIs Parquet + ML Model + CSV Export      │
-                    │  → Tableau / Apache Superset                 │
+                    │   stimlib  / Apache Superset                 │
                     └─────────────────────────────────────────────┘
 ```
 
