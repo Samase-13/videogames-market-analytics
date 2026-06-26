@@ -20,7 +20,7 @@ Arquitectura Lambda completa para análisis del mercado de videojuegos desplegad
                     ┌────────────────────▼────────────────────────┐
                     │         CAPA DE SERVICIO (Serving Layer)     │
                     │  8 KPIs Parquet + ML Model + CSV Export      │
-                    │   stimlib  / Apache Superset                 │
+                    │  → Streamlit Dashboard :8501                 │
                     └─────────────────────────────────────────────┘
 ```
 
@@ -53,7 +53,8 @@ videogames-market-analytics/
 │   ├── 03_productor_kafka.py       # Simulador eventos CCU tiempo real
 │   ├── 04_pipeline_streaming.py    # Alertas hype spikes (Speed Layer)
 │   ├── 05_train_ml_model.py        # Regresión revenue con MLlib
-│   └── 06_export_bi.py             # Exportación CSV para Tableau/Superset
+│   ├── 06_export_bi.py             # Exportación CSV para BI
+│   └── 07_dashboard_streamlit.py   # Dashboard interactivo Streamlit
 ├── config/
 │   ├── core-site.xml
 │   ├── hdfs-site.xml
@@ -133,6 +134,18 @@ spark-submit \
 hdfs dfs -getmerge /data/export/videogames_dashboard videogames_dashboard.csv
 ```
 
+### 8. Dashboard Streamlit
+```bash
+# Instalar dependencias
+pip3 install streamlit pandas plotly
+
+# Lanzar dashboard (detecta HDFS automáticamente, modo DEMO si no está disponible)
+cd /home/vboxuser/videogames-market-analytics
+streamlit run scripts/07_dashboard_streamlit.py --server.port 8501
+
+# Abrir en navegador: http://10.242.175.212:8501
+```
+
 ## 8 KPIs Estratégicos
 
 | # | KPI | Propósito de Negocio |
@@ -153,6 +166,7 @@ hdfs dfs -getmerge /data/export/videogames_dashboard videogames_dashboard.csv
 | HDFS NameNode | http://10.242.175.212:9870 |
 | YARN ResourceManager | http://10.242.175.212:8088 |
 | Kafka | 10.242.175.212:9092 |
+| Streamlit Dashboard | http://10.242.175.212:8501 |
 
 ## Monitoreo HDFS
 
